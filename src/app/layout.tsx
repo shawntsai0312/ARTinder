@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "./navbar";
+import Headbar from "./headbar";
+import Choicebar from "./choicebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +19,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="h-screen overflow-hidden w-screen">
+          <div className="w-full h-[44px] absolute top-0">
+            <Headbar />
+          </div>
+          <div className="w-full h-[calc(100%-88px)] absolute overflow-hidden top-[44px]">
+            {children}
+          </div>
+          <div className="w-full h-[44px] absolute flex justify-center bottom-[80px] z-30">
+            < Choicebar/>
+          </div>
+          <div className="w-full h-[44px] absolute flex justify-center bottom-0 ">
+            <Navbar />
+          </div>
+        </div>
+      </body>
     </html>
   );
 }
