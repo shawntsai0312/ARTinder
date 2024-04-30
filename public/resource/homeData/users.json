@@ -7,8 +7,14 @@
     },
     {
         "id": "ke",
-        "name": "柯承恩教授",
+        "name": "柯承恩",
         "discription": "我是柯承恩",
         "url": "/resource/homeData/img/ke.jpg"
+    },
+    {
+        "id": "nien",
+        "name": "粘曉菁",
+        "discription": "我是粘曉菁",
+        "url": "/resource/homeData/img/nien.jpg"
     }
 ]

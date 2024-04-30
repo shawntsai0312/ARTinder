@@ -24,12 +24,9 @@ export default function RootLayout({
           <div className="w-full h-[44px] fixed top-0 bg-white">
             <Headbar />
           </div>
-          <div className="w-full h-[calc(100%-88px)] fixed overflow-y top-[44px]">
+          <div className="w-full h-[calc(100%-88px)] fixed overflow-y top-[44px] z-10">
             {children}
           </div>
-          {/* <div className="w-full h-[44px] fixed flex justify-center bottom-[80px] z-30">
-            < Choicebar/>
-          </div> */}
           <div className="w-full h-[44px] fixed flex justify-center bottom-0 bg-white">
             <Navbar />
           </div>
