@@ -10,15 +10,16 @@ import InfoIcon from '@mui/icons-material/Info';
 interface CardProps {
     name: string;
     discrption: string;
+    imgUrl: string;
 }
 
-const card = ({ name, discrption }: CardProps) => {
+const card = ({ name, discrption, imgUrl }: CardProps) => {
     return (
         <Card sx={{ height: '100%', width: '97.5%' }}>
             <CardCover>
                 <img
-                    src="/resource/data/img/許金川教授.jpg"
-                    srcSet="/resource/data/img/許金川教授.jpg 2x"
+                    src={imgUrl}
+                    srcSet={`${imgUrl} 2x`}
                     loading="lazy"
                     alt=""
                 />
@@ -34,9 +35,9 @@ const card = ({ name, discrption }: CardProps) => {
                     <Typography level="h2" textColor="#fff">
                         {name}
                     </Typography>
-                    <IconButton>
+                    {/* <IconButton>
                         <InfoIcon sx={{ fill: '#ffffff' }} />
-                    </IconButton>
+                    </IconButton> */}
                 </Stack>
                 <Typography textColor="neutral.300">
                     {discrption}

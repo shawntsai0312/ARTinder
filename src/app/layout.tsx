@@ -20,17 +20,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="h-screen overflow-hidden w-screen">
-          <div className="w-full h-[44px] absolute top-0">
+        <div className="h-screen overflow-y w-screen">
+          <div className="w-full h-[44px] fixed top-0">
             <Headbar />
           </div>
-          <div className="w-full h-[calc(100%-88px)] absolute overflow-hidden top-[44px]">
+          <div className="w-full h-[calc(100%-88px)] fixed overflow-y top-[44px]">
             {children}
           </div>
-          <div className="w-full h-[44px] absolute flex justify-center bottom-[80px] z-30">
+          <div className="w-full h-[44px] fixed flex justify-center bottom-[80px] z-30">
             < Choicebar/>
           </div>
-          <div className="w-full h-[44px] absolute flex justify-center bottom-0 ">
+          <div className="w-full h-[44px] fixed flex justify-center bottom-0 ">
             <Navbar />
           </div>
         </div>

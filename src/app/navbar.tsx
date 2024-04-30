@@ -55,7 +55,7 @@ const Navbar = () => {
             {pages.map((page, index) => (
                 <div
                     className='h-max w-8 py-1 opacity-50 cursor-pointer transistion duration-200 ease-in-out'
-                    style={pathname === page.path ? { fill: '#ee0000', opacity: '80%' } : { fill: 'black' }}
+                    style={pathname.includes(page.path) ? { fill: '#ee0000', opacity: '80%' } : { fill: 'black' }}
                     onClick={() => router.push(page.path)}
                 >
                     {page.svg}

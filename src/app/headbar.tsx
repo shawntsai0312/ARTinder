@@ -5,7 +5,7 @@ const Headbar = () => {
 
   return (
     <div className='py-2 px-6 flex fixed' >
-      <h1 className="text-black" >ARTinder</h1>
+      <p className="text-black text-2xl" >ARTinder</p>
     </div>
   );
 }
