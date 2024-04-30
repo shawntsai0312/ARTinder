@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 const Headbar = () => {
 
   return (
-    <div className='py-2 px-6 flex fixed' >
+    <div className='py-2 px-6 flex fixed bg-white' >
       <p className="text-black text-2xl" >ARTinder</p>
     </div>
   );

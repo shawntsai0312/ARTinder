@@ -1,14 +1,17 @@
-[
-    {
-        "sender": "liu",
-        "content": "你好"
-    },
-    {
-        "sender": "liu",
-        "content": "我是劉震紳"
-    },
-    {
-        "sender": "me",
-        "content": "你好"
-    }
-]
+{
+    "name": "劉震紳",
+    "content": [
+        {
+            "sender": "liu",
+            "content": "你好"
+        },
+        {
+            "sender": "liu",
+            "content": "我是劉震紳"
+        },
+        {
+            "sender": "me",
+            "content": "你好"
+        }
+    ]
+}

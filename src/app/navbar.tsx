@@ -51,7 +51,7 @@ const Navbar = () => {
     const pathname = usePathname();
 
     return (
-        <div className='flex items-center fixed h-max w-full justify-around' >
+        <div className='flex items-center fixed h-max w-full justify-around bg-white ' >
             {pages.map((page, index) => (
                 <div
                     className='h-max w-8 py-1 opacity-50 cursor-pointer transistion duration-200 ease-in-out'

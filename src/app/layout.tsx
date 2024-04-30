@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./navbar";
 import Headbar from "./headbar";
-import Choicebar from "./choicebar";
+import Choicebar from "./home/choicebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,16 +21,16 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="h-screen overflow-y w-screen">
-          <div className="w-full h-[44px] fixed top-0">
+          <div className="w-full h-[44px] fixed top-0 bg-white">
             <Headbar />
           </div>
           <div className="w-full h-[calc(100%-88px)] fixed overflow-y top-[44px]">
             {children}
           </div>
-          <div className="w-full h-[44px] fixed flex justify-center bottom-[80px] z-30">
+          {/* <div className="w-full h-[44px] fixed flex justify-center bottom-[80px] z-30">
             < Choicebar/>
-          </div>
-          <div className="w-full h-[44px] fixed flex justify-center bottom-0 ">
+          </div> */}
+          <div className="w-full h-[44px] fixed flex justify-center bottom-0 bg-white">
             <Navbar />
           </div>
         </div>
