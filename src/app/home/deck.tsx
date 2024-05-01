@@ -21,20 +21,19 @@ const from = (_i: number) => ({
 const trans = (r: number, s: number) =>
     `perspective(1500px) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`
 
-const Deck = ({ setLikeRate, setDislikeRate, like, dislike, setLike, setDislike }:
+const Deck = ({ setLikeRate, setDislikeRate, choices, setChoices, setCurrCardIndex }:
     {
         setLikeRate: Dispatch<SetStateAction<number>>,
         setDislikeRate: Dispatch<SetStateAction<number>>,
-        like: boolean,
-        dislike: boolean,
-        setLike: Dispatch<SetStateAction<boolean>>,
-        setDislike: Dispatch<SetStateAction<boolean>>
+        choices: Array<'like' | 'dislike' | 'none'>,
+        setChoices: Dispatch<SetStateAction<Array<'like' | 'dislike' | 'none'>>>,
+        setCurrCardIndex: Dispatch<SetStateAction<number>>
     }) => {
     const [gone, setGone] = useState<Set<number>>(() => new Set())
 
     const [clickPositionY, setClickPositionY] = useState<number>(0);
     const [down, setDown] = useState<boolean>(false);
-    const divRef = useRef<HTMLDivElement>(null);
+    const animatedDivRef = useRef<HTMLDivElement>(null);
     const [rotateDirection, setRotateDirection] = useState<number>(1);
 
     const handleClick = (event: React.TouchEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) => {
@@ -44,7 +43,7 @@ const Deck = ({ setLikeRate, setDislikeRate, like, dislike, setLike, setDislike 
             : (event as React.MouseEvent<HTMLDivElement>).clientY;
 
         // Get the position of the div relative to the viewport
-        const divRect = divRef.current?.getBoundingClientRect();
+        const divRect = animatedDivRef.current?.getBoundingClientRect();
         const divCenterY = divRect ? divRect.height / 2 : 0;
 
         // Calculate the interaction position relative to the center of the div
@@ -74,6 +73,7 @@ const Deck = ({ setLikeRate, setDislikeRate, like, dislike, setLike, setDislike 
         setDown(down);
 
         if (!down && trigger) {
+
             setGone(prev => {
                 const newArray = Array.from(prev); // Convert the existing Set to an array
                 newArray.push(index); // Add the new index to the array
@@ -82,32 +82,28 @@ const Deck = ({ setLikeRate, setDislikeRate, like, dislike, setLike, setDislike 
         }
 
         api.start(i => {
+            // console.log(i,choices[i])
             if (index !== i) return
             let isGone = gone.has(index)
 
             let x = 0, y = 0;
             if (isGone) {
-                // if (like) {
-                //     x = 2 * window.innerWidth
-                // } else if (dislike) {
-                //     x = -2 * window.innerWidth
-                // } else {
-                    x = 2 * window.innerWidth * movement[0] / Math.abs(movement[0])
-                // }
+                x = 2 * window.innerWidth * movement[0] / Math.abs(movement[0])
                 y = 0;
             } else {
-                // if (like) {
-                //     console.log('like move')
-                //     x = 0.5 * window.innerWidth
-                //     y = 0
-                // } else if (dislike) {
-                //     x = -0.5 * window.innerWidth
-                // }
                 if (down) {
                     x = movement[0];
                     y = movement[1];
                 } else {
-                    x = 0;
+                    if (choices[i] === 'like') {
+                        x = 2 * window.innerWidth;
+                        console.log('click like')
+                    }
+                    else if (choices[i] === 'dislike') {
+                        x = -2 * window.innerWidth;
+                        console.log('click dislike')
+                    }
+                    else x = 0;
                     y = 0;
                 }
             }
@@ -118,8 +114,12 @@ const Deck = ({ setLikeRate, setDislikeRate, like, dislike, setLike, setDislike 
             if (!down && trigger) {
                 x = 2 * window.innerWidth * movement[0] / Math.abs(movement[0]);
                 y = 0;
-                setLike(x > 0 ? true : false);
-                setDislike(x < 0 ? true : false);
+
+                let newChoices = [...choices];
+                if (x > 0) newChoices[i] = 'like';
+                if (x < 0) newChoices[i] = 'dislike';
+                if (x === 0) newChoices[i] = 'none';
+                setChoices(newChoices);
 
                 console.log(
                     'trigger', trigger,
@@ -127,6 +127,8 @@ const Deck = ({ setLikeRate, setDislikeRate, like, dislike, setLike, setDislike 
                     'y', y,
                 )
             }
+
+            if (x >= 2 * window.innerWidth || x <= -2 * window.innerWidth) setCurrCardIndex(index - 1);
 
             setLikeRate(x >= 0 ? x / triggerDistance : 0);
             setDislikeRate(x <= 0 ? -x / triggerDistance : 0);
@@ -140,14 +142,9 @@ const Deck = ({ setLikeRate, setDislikeRate, like, dislike, setLike, setDislike 
                 config: { friction: 50, tension: down ? 800 : isGone ? 200 : 500 },
             }
         })
-
-        // if (!down && 'gone.size === users.length)
-        //     setTimeout(() => {
-        //         gone.clear()
-        //         api.start(i => to(i))
-        //     }, 600)'
     })
     // Now we're just mapping the animated values to our view, that's it. Btw, this component only renders once. :-)
+
     return (
         <div className='w-full h-full will-change-transform items-center justify-center touch-none'>
             {props.map(({ x, y, rot, scale }, i) => (
@@ -157,7 +154,7 @@ const Deck = ({ setLikeRate, setDislikeRate, like, dislike, setLike, setDislike 
                         transform: interpolate([rot, scale], trans)
                     }}
                     {...bind(i)}
-                    ref={divRef}
+                    ref={animatedDivRef}
                     onMouseMove={handleClick}
                 >
                     <Card name={users[i].name} discrption={users[i].discription} imgUrl={users[i].url} />

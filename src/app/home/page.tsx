@@ -1,14 +1,16 @@
 'use client'
 import Choicebar from "./choicebar";
-import { use, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Deck from './deck';
+import users from '../../../public/resource/homeData/users.json'
 
 const home = () => {
+    const [currCardIndex, setCurrCardIndex] = useState<number>(users.length - 1);
+
     const [likeRate, setLikeRate] = useState<number>(0);
     const [dislikeRate, setDislikeRate] = useState<number>(0);
 
-    const [like, setLike] = useState<boolean>(false);
-    const [dislike, setDislike] = useState<boolean>(false);
+    const [choices, setChoices] = useState<Array<'like' | 'dislike' | 'none'>>(new Array(users.length).fill('none'));
 
     useEffect(() => {
         if (likeRate >= 5.5) setLikeRate(0);
@@ -21,23 +23,28 @@ const home = () => {
     }, [dislikeRate])
 
     useEffect(() => {
-        console.log('like', like);
-    }, [like])
+        console.log('choices', choices);
+        handleCardSwipe();
+    }, [choices])
 
     useEffect(() => {
-        console.log('dislike', dislike);
-    }, [dislike])
+        console.log('currCardIndex', currCardIndex);
+    }, [currCardIndex])
+
+    const handleCardSwipe = () => {
+        console.log('handleCardSwipe')
+    };
 
     return (
         <div className="justify-center items-center h-full w-full overflow-y relative">
             <Deck setLikeRate={setLikeRate} setDislikeRate={setDislikeRate}
-                like={like} dislike={dislike}
-                setLike={setLike} setDislike={setDislike}
+                choices={choices} setChoices={setChoices}
+                setCurrCardIndex={setCurrCardIndex}
             />
             <div className="w-full h-[44px] fixed flex justify-center bottom-[80px] z-30">
                 <Choicebar likeRate={likeRate} dislikeRate={dislikeRate}
+                    currCardIndex={currCardIndex} choices={choices} setChoices={setChoices}
                     setLikeRate={setLikeRate} setDislikeRate={setDislikeRate}
-                    setLike={setLike} setDislike={setDislike}
                 />
             </div>
         </div>

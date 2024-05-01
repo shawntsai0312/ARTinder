@@ -3,13 +3,13 @@ import { useEffect, useState, useRef, Dispatch, SetStateAction } from 'react';
 import IconButton from '@mui/material/IconButton';
 import { usePathname } from 'next/navigation';
 
-interface ChoiceProps {
+interface ChoiceIconProps {
     title: string;
     color: string;
     svgPath: React.ReactElement;
 }
 
-const choices: ChoiceProps[] = [
+const choicesIcon: ChoiceIconProps[] = [
     {
         title: 'dislike',
         color: '#ff4860',
@@ -25,22 +25,23 @@ const choices: ChoiceProps[] = [
     },
 ];
 
-const Choicebar = ({ likeRate, dislikeRate, setLikeRate, setDislikeRate, setLike, setDislike}:
+const Choicebar = ({ likeRate, dislikeRate, currCardIndex, choices, setChoices, setLikeRate, setDislikeRate }:
     {
         likeRate: number,
         dislikeRate: number,
+        currCardIndex: number,
+        choices: Array<'like' | 'dislike' | 'none'>,
+        setChoices: Dispatch<SetStateAction<Array<'like' | 'dislike' | 'none'>>>,
         setLikeRate: Dispatch<SetStateAction<number>>,
         setDislikeRate: Dispatch<SetStateAction<number>>,
-        setLike: Dispatch<SetStateAction<boolean>>,
-        setDislike: Dispatch<SetStateAction<boolean>>
     }) => {
     const pathname = usePathname();
 
     const fillHeartHandler = (choiceTitle: string) => {
         if (choiceTitle === 'like') {
-            if (likeRate <= 0 || likeRate >= 2) return choices[1].color;
+            if (likeRate <= 0 || likeRate >= 2) return choicesIcon[1].color;
         } else {
-            if (dislikeRate <= 0 || dislikeRate >= 2) return choices[0].color;
+            if (dislikeRate <= 0 || dislikeRate >= 2) return choicesIcon[0].color;
         }
         return 'white';
     }
@@ -75,19 +76,20 @@ const Choicebar = ({ likeRate, dislikeRate, setLikeRate, setDislikeRate, setLike
     }
 
     const handleClick = (choiceTitle: string) => {
+        let newChoices = [...choices];
+        // console.log('currCardIndex', currCardIndex)
         if (choiceTitle === 'like') {
             // console.log('like');
+            newChoices[currCardIndex] = 'like';
             setLikeRate(0.8);
             setDislikeRate(0);
-            setLike(true);
-            setDislike(false);
         } else {
             // console.log('dislike');
+            newChoices[currCardIndex] = 'dislike';
             setDislikeRate(0.8);
             setLikeRate(0);
-            setDislike(true);
-            setLike(false);
         }
+        setChoices(newChoices);
     }
 
 
@@ -96,15 +98,15 @@ const Choicebar = ({ likeRate, dislikeRate, setLikeRate, setDislikeRate, setLike
             {
                 pathname === '/home' ?
                     <div className='flex items-center fixed h-max w-full justify-around' >
-                        {choices.map((choice, index) => (
+                        {choicesIcon.map((choiceIcon, index) => (
                             <IconButton
                                 key={index}
                                 component="button" // Add the component prop with the value "button"
                                 sx={{
                                     width: '80px',
-                                    fill: `${fillHeartHandler(choice.title)}`
+                                    fill: `${fillHeartHandler(choiceIcon.title)}`
                                 }}
-                                onClick={() => handleClick(choice.title)} // Provide a valid onClick event handler
+                                onClick={() => handleClick(choiceIcon.title)} // Provide a valid onClick event handler
                             >
                                 <svg version="1.1" id="圖層_1" focusable="false" xmlns="http://www.w3.org/2000/svg"
                                     xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24"
@@ -112,16 +114,16 @@ const Choicebar = ({ likeRate, dislikeRate, setLikeRate, setDislikeRate, setLike
                                     style={{ background: 'new 0 0 24 24' }} xmlSpace="preserve"
                                 >
                                     <g>
-                                        <circle cx="12" cy="12" r={`${circleRadiusHandler(choice.title)}`} fill={choice.color}
-                                            fillOpacity={`${circleOpacityHandler(choice.title)}`}
-                                            stroke={choice.color} stroke-width={`${circleStrokeHandler(choice.title)}`}
+                                        <circle cx="12" cy="12" r={`${circleRadiusHandler(choiceIcon.title)}`} fill={choiceIcon.color}
+                                            fillOpacity={`${circleOpacityHandler(choiceIcon.title)}`}
+                                            stroke={choiceIcon.color} stroke-width={`${circleStrokeHandler(choiceIcon.title)}`}
                                         />
                                     </g>
                                     {/* scale r, xy translate 12*(1-r) */}
                                     <g className='scale-[0.425] translate-x-[6.9px] translate-y-[6.9px]
                                     hover:scale-[0.475] hover:translate-x-[6.3px] hover:translate-y-[6.3px]
                                     transistion duration-200 ease-in-out'>
-                                        {choice.svgPath}
+                                        {choiceIcon.svgPath}
                                     </g>
                                 </svg>
                             </IconButton>
