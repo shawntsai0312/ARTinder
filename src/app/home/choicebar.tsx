@@ -25,70 +25,63 @@ const choicesIcon: ChoiceIconProps[] = [
     },
 ];
 
-const Choicebar = ({ likeRate, dislikeRate, currCardIndex, choices, setChoices, setLikeRate, setDislikeRate }:
+const Choicebar = ({ choiceRate, setChoiceRate, currCardIndex, choices, setChoices }:
     {
-        likeRate: number,
-        dislikeRate: number,
+        choiceRate: number,
+        setChoiceRate: Dispatch<SetStateAction<number>>,
         currCardIndex: number,
         choices: Array<'like' | 'dislike' | 'none'>,
-        setChoices: Dispatch<SetStateAction<Array<'like' | 'dislike' | 'none'>>>,
-        setLikeRate: Dispatch<SetStateAction<number>>,
-        setDislikeRate: Dispatch<SetStateAction<number>>,
+        setChoices: Dispatch<SetStateAction<Array<'like' | 'dislike' | 'none'>>>
     }) => {
     const pathname = usePathname();
 
     const fillHeartHandler = (choiceTitle: string) => {
         if (choiceTitle === 'like') {
-            if (likeRate <= 0 || likeRate >= 2) return choicesIcon[1].color;
+            if (choiceRate <= 0 || choiceRate >= 2) return choicesIcon[1].color;
         } else {
-            if (dislikeRate <= 0 || dislikeRate >= 2) return choicesIcon[0].color;
+            if (-choiceRate <= 0 || -choiceRate >= 2) return choicesIcon[0].color;
         }
         return 'white';
     }
 
     const circleOpacityHandler = (choiceTitle: string) => {
         if (choiceTitle === 'like') {
-            if (likeRate > 0 && likeRate <= 1) return '50%';
-            else if (likeRate > 1 && likeRate <= 2) return `${50 - (likeRate - 1) * 50}%`;
+            if (choiceRate > 0 && choiceRate <= 1) return '50%';
+            else if (choiceRate > 1 && choiceRate <= 2) return `${50 - (choiceRate - 1) * 50}%`;
         } else {
-            if (dislikeRate > 0 && dislikeRate <= 1) return '50%';
-            else if (dislikeRate > 1 && dislikeRate <= 2)`${50 - (dislikeRate - 1) * 50}%`;
+            if (-choiceRate > 0 && -choiceRate <= 1) return '50%';
+            else if (-choiceRate > 1 && -choiceRate <= 2)`${50 - (-choiceRate - 1) * 50}%`;
         }
         return '0%';
     }
 
     const circleRadiusHandler = (choiceTitle: string) => {
         if (choiceTitle === 'like') {
-            if (likeRate > 0 && likeRate <= 1) return `${8 + likeRate * 3}`;
+            if (choiceRate > 0 && choiceRate <= 1) return `${8 + choiceRate * 3}`;
         } else {
-            if (dislikeRate > 0 && dislikeRate <= 1) return `${8 + dislikeRate * 3}`;
+            if (-choiceRate > 0 && -choiceRate <= 1) return `${8 + -choiceRate * 3}`;
         }
         return '11';
     }
 
     const circleStrokeHandler = (choiceTitle: string) => {
         if (choiceTitle === 'like') {
-            if (likeRate > 0 && likeRate <= 1) return `${likeRate * 0.3}`;
+            if (choiceRate > 0 && choiceRate <= 1) return `${choiceRate * 0.3}`;
         } else {
-            if (dislikeRate > 0 && dislikeRate <= 1) return `${dislikeRate * 0.3}`;
+            if (-choiceRate > 0 && -choiceRate <= 1) return `${-choiceRate * 0.3}`;
         }
         return '0.3';
     }
 
-    const handleClick = (choiceTitle: string) => {
+    const handleMouseDown = (choiceTitle: string) => {
+        if (choiceTitle === 'like') setChoiceRate(0.8);
+        else setChoiceRate(-0.8);
+    }
+
+    const handleMouseUp = (choiceTitle: string) => {
         let newChoices = [...choices];
-        // console.log('currCardIndex', currCardIndex)
-        if (choiceTitle === 'like') {
-            // console.log('like');
-            newChoices[currCardIndex] = 'like';
-            setLikeRate(0.8);
-            setDislikeRate(0);
-        } else {
-            // console.log('dislike');
-            newChoices[currCardIndex] = 'dislike';
-            setDislikeRate(0.8);
-            setLikeRate(0);
-        }
+        if (choiceTitle === 'like') newChoices[currCardIndex] = 'like';
+        else newChoices[currCardIndex] = 'dislike';
         setChoices(newChoices);
     }
 
@@ -106,7 +99,9 @@ const Choicebar = ({ likeRate, dislikeRate, currCardIndex, choices, setChoices, 
                                     width: '80px',
                                     fill: `${fillHeartHandler(choiceIcon.title)}`
                                 }}
-                                onClick={() => handleClick(choiceIcon.title)} // Provide a valid onClick event handler
+                                // onClick={() => handleClick(choiceIcon.title)}
+                                onMouseDown={() => handleMouseDown(choiceIcon.title)}
+                                onMouseUp={() => handleMouseUp(choiceIcon.title)}
                             >
                                 <svg version="1.1" id="圖層_1" focusable="false" xmlns="http://www.w3.org/2000/svg"
                                     xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24"

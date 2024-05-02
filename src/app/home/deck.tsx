@@ -11,22 +11,24 @@ const to = (i: number) => ({
     rot: 0,
     scale: 1
 })
-const from = (_i: number) => ({
+const from = (i: number) => ({
     x: 0,
     y: 0,
     rot: 0,
     scale: 1
 })
-// This is being used down there in the view, it interpolates rotation and scale into a css transform
+
+const triggerDistance = window.innerWidth / 3;
+
 const trans = (r: number, s: number) =>
     `perspective(1500px) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`
 
-const Deck = ({ setLikeRate, setDislikeRate, choices, setChoices, setCurrCardIndex }:
+const Deck = ({ setChoiceRate, choices, setChoices, currCardIndex, setCurrCardIndex }:
     {
-        setLikeRate: Dispatch<SetStateAction<number>>,
-        setDislikeRate: Dispatch<SetStateAction<number>>,
+        setChoiceRate: Dispatch<SetStateAction<number>>,
         choices: Array<'like' | 'dislike' | 'none'>,
         setChoices: Dispatch<SetStateAction<Array<'like' | 'dislike' | 'none'>>>,
+        currCardIndex: number,
         setCurrCardIndex: Dispatch<SetStateAction<number>>
     }) => {
     const [gone, setGone] = useState<Set<number>>(() => new Set())
@@ -55,7 +57,6 @@ const Deck = ({ setLikeRate, setDislikeRate, choices, setChoices, setCurrCardInd
 
     useEffect(() => {
         if (down) {
-            // console.log('clickPositionY', clickPositionY);
             if (clickPositionY > 0) setRotateDirection(-1);
             else setRotateDirection(1);
         }
@@ -66,14 +67,53 @@ const Deck = ({ setLikeRate, setDislikeRate, choices, setChoices, setCurrCardInd
         from: from(i),
     }))
 
-    const bind = useDrag(({ args: [index], down, movement }) => {
-        const triggerDistance = window.innerWidth / 3;
+    useEffect(() => {
+        console.log('choices', choices);
+        handleCardSwipe();
+    }, [choices])
+
+    const handleCardSwipe = () => {
+
+        api.start(i => {
+            if (currCardIndex !== i) return
+
+            console.log('handleCardSwipe', i, choices[i]);
+
+            let x = 0, y = 0, rot = 0, scale = 1;
+
+            if (choices[i] === 'like') {
+                x = 2 * window.innerWidth;
+                console.log('click like')
+            }
+            else if (choices[i] === 'dislike') {
+                x = -2 * window.innerWidth;
+                console.log('click dislike')
+            }
+            else x = 0;
+            y = 0;
+            rot = x / 30;
+
+            if (x >= 2 * window.innerWidth || x <= -2 * window.innerWidth) setCurrCardIndex(currCardIndex - 1);
+            setChoiceRate(x / triggerDistance);
+            return {
+                x,
+                y,
+                rot,
+                scale,
+                delay: undefined,
+                config: { friction: 50, tension: down ? 800 : 200 },
+            }
+        })
+
+    };
+
+    const bind = useDrag(({ args: [index], down, movement, dragging }) => {
         const trigger = (Math.abs(movement[0]) >= triggerDistance);
 
+        setCurrCardIndex(index);    // the top card index = index
         setDown(down);
 
         if (!down && trigger) {
-
             setGone(prev => {
                 const newArray = Array.from(prev); // Convert the existing Set to an array
                 newArray.push(index); // Add the new index to the array
@@ -82,9 +122,11 @@ const Deck = ({ setLikeRate, setDislikeRate, choices, setChoices, setCurrCardInd
         }
 
         api.start(i => {
-            // console.log(i,choices[i])
             if (index !== i) return
+
+            // only the top card can be dragged
             let isGone = gone.has(index)
+            // console.log(i, dragging)
 
             let x = 0, y = 0;
             if (isGone) {
@@ -95,20 +137,14 @@ const Deck = ({ setLikeRate, setDislikeRate, choices, setChoices, setCurrCardInd
                     x = movement[0];
                     y = movement[1];
                 } else {
-                    if (choices[i] === 'like') {
-                        x = 2 * window.innerWidth;
-                        console.log('click like')
-                    }
-                    else if (choices[i] === 'dislike') {
-                        x = -2 * window.innerWidth;
-                        console.log('click dislike')
-                    }
+                    if (choices[i] === 'like') x = 2 * window.innerWidth;
+                    else if (choices[i] === 'dislike') x = -2 * window.innerWidth;
                     else x = 0;
                     y = 0;
                 }
             }
 
-            let rot = isGone ? 0 : x / 20 * rotateDirection
+            let rot = x / 30 * rotateDirection
             let scale = 1;
 
             if (!down && trigger) {
@@ -120,18 +156,10 @@ const Deck = ({ setLikeRate, setDislikeRate, choices, setChoices, setCurrCardInd
                 if (x < 0) newChoices[i] = 'dislike';
                 if (x === 0) newChoices[i] = 'none';
                 setChoices(newChoices);
-
-                console.log(
-                    'trigger', trigger,
-                    'x', x,
-                    'y', y,
-                )
             }
 
             if (x >= 2 * window.innerWidth || x <= -2 * window.innerWidth) setCurrCardIndex(index - 1);
-
-            setLikeRate(x >= 0 ? x / triggerDistance : 0);
-            setDislikeRate(x <= 0 ? -x / triggerDistance : 0);
+            setChoiceRate(x / triggerDistance);
 
             return {
                 x,
@@ -143,7 +171,6 @@ const Deck = ({ setLikeRate, setDislikeRate, choices, setChoices, setCurrCardInd
             }
         })
     })
-    // Now we're just mapping the animated values to our view, that's it. Btw, this component only renders once. :-)
 
     return (
         <div className='w-full h-full will-change-transform items-center justify-center touch-none'>
