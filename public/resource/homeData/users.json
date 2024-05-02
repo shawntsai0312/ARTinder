@@ -2,25 +2,48 @@
     {
         "id": "hsu",
         "name": "許金川",
-        "discription": "我是許金川，我愛看抖音",
-        "url": "/resource/homeData/img/hsu.jpg"
+        "discription": [
+            "我愛看抖音",
+            "我演講會一直放抖音幹片"
+        ],
+        "imgUrl": "/resource/homeData/img/hsu.jpg"
     },
     {
         "id": "ke",
         "name": "柯承恩",
-        "discription": "我是柯承恩",
-        "url": "/resource/homeData/img/ke.jpg"
+        "discription": [
+            "我是柯承恩"
+        ],
+        "imgUrl": "/resource/homeData/img/ke.jpg"
     },
     {
         "id": "nien",
         "name": "粘曉菁",
-        "discription": "我是粘曉菁",
-        "url": "/resource/homeData/img/nien.jpg"
+        "discription": [
+            "我開NPO之戀這門通識課",
+            "我很會吹捧我的基金會夥伴"
+        ],
+        "imgUrl": "/resource/homeData/img/nien.jpg"
+    },
+    {
+        "id": "damn",
+        "name": "damn damn 哥",
+        "discription": [
+            "蝦皮damn到damn的damn員",
+            "M3合度",
+            "SHIT"
+        ],
+        "imgUrl": "/resource/homeData/img/damn.jpg"
     },
     {
         "id": "tsai",
         "name": "蔡鋒博",
-        "discription": "我是蔡鋒博醫師，我的專長是做棒式、迅猛龍、毛毛蟲\n1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23",
-        "url": "/resource/homeData/img/tsai.jpg"
+        "discription": [
+            "彰化博元婦產科蔡鋒博醫師",
+            "專長是做棒式、迅猛龍、毛毛蟲",
+            "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ...",
+            "歡迎購買蔡醫師小卡、蔡醫梳、蔡醫服"
+        ],
+        "imgUrl": "/resource/homeData/img/tsai.jpg"
     }
 ]

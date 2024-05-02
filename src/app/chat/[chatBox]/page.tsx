@@ -85,7 +85,7 @@ const chatBox = async ({ params }: chatBoxProps) => {
                         : 'You have no chat data'
                 }
             </div>
-            <Stack className='h-[46px] p-1 fixed bottom-[calc(46px)]  w-full' alignItems="center" direction="row">
+            <Stack className='h-[46px] p-1 fixed bottom-[calc(46px)]  w-full z-[9999] bg-white' alignItems="center" direction="row">
                 <TextField size='small' fullWidth label={`To ${jsonData.name}`} id="fullWidth" />
                 <SendRoundedIcon sx={{ width: 34, height: 34 }} />
             </Stack>

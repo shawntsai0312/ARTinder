@@ -3,6 +3,10 @@ import { useEffect, useState, useRef, Dispatch, SetStateAction } from 'react';
 import IconButton from '@mui/material/IconButton';
 import { usePathname } from 'next/navigation';
 
+const normalScale: number = 0.425;
+const hoverScale: number = 0.475;
+const translate = (scale: number): number => (12 * (1 - scale));
+
 interface ChoiceIconProps {
     title: string;
     color: string;
@@ -25,66 +29,73 @@ const choicesIcon: ChoiceIconProps[] = [
     },
 ];
 
-const Choicebar = ({ choiceRate, setChoiceRate, currCardIndex, choices, setChoices }:
+const Choicebar = ({ choiceRate, setChoiceRate, currCardIndex, setCurrCardIndex, choices, setChoices }:
     {
         choiceRate: number,
         setChoiceRate: Dispatch<SetStateAction<number>>,
         currCardIndex: number,
+        setCurrCardIndex: Dispatch<SetStateAction<number>>,
         choices: Array<'like' | 'dislike' | 'none'>,
         setChoices: Dispatch<SetStateAction<Array<'like' | 'dislike' | 'none'>>>
     }) => {
     const pathname = usePathname();
 
-    const fillHeartHandler = (choiceTitle: string) => {
+    const fillHeartHandler = (choiceTitle: string): string => {
         if (choiceTitle === 'like') {
             if (choiceRate <= 0 || choiceRate >= 2) return choicesIcon[1].color;
-        } else {
+        }
+        if (choiceTitle === 'dislike') {
             if (-choiceRate <= 0 || -choiceRate >= 2) return choicesIcon[0].color;
         }
         return 'white';
     }
 
-    const circleOpacityHandler = (choiceTitle: string) => {
+    const circleOpacityHandler = (choiceTitle: string): string => {
         if (choiceTitle === 'like') {
-            if (choiceRate > 0 && choiceRate <= 1) return '50%';
-            else if (choiceRate > 1 && choiceRate <= 2) return `${50 - (choiceRate - 1) * 50}%`;
-        } else {
-            if (-choiceRate > 0 && -choiceRate <= 1) return '50%';
-            else if (-choiceRate > 1 && -choiceRate <= 2)`${50 - (-choiceRate - 1) * 50}%`;
+            if (choiceRate > 0 && choiceRate <= 1) return '67%';
+            else if (choiceRate > 1 && choiceRate <= 2) return `${67 - (choiceRate - 1) * 67}%`;
+        }
+        if (choiceTitle === 'dislike') {
+            if (-choiceRate > 0 && -choiceRate <= 1) return '67%';
+            else if (-choiceRate > 1 && -choiceRate <= 2)`${67 - (-choiceRate - 1) * 67}%`;
         }
         return '0%';
     }
 
-    const circleRadiusHandler = (choiceTitle: string) => {
+    const circleRadiusHandler = (choiceTitle: string): string => {
         if (choiceTitle === 'like') {
             if (choiceRate > 0 && choiceRate <= 1) return `${8 + choiceRate * 3}`;
-        } else {
+        }
+        if (choiceTitle === 'dislike') {
             if (-choiceRate > 0 && -choiceRate <= 1) return `${8 + -choiceRate * 3}`;
         }
         return '11';
     }
 
-    const circleStrokeHandler = (choiceTitle: string) => {
+    const circleStrokeHandler = (choiceTitle: string): string => {
         if (choiceTitle === 'like') {
             if (choiceRate > 0 && choiceRate <= 1) return `${choiceRate * 0.3}`;
-        } else {
+        }
+        if (choiceTitle === 'dislike') {
             if (-choiceRate > 0 && -choiceRate <= 1) return `${-choiceRate * 0.3}`;
         }
         return '0.3';
     }
 
-    const handleMouseDown = (choiceTitle: string) => {
+    const handleMouseDown = (choiceTitle: string): void => {
         if (choiceTitle === 'like') setChoiceRate(0.8);
-        else setChoiceRate(-0.8);
+        if (choiceTitle === 'dislike') setChoiceRate(-0.8);
     }
 
-    const handleMouseUp = (choiceTitle: string) => {
+    const handleMouseUp = (choiceTitle: string): void => {
+        // console.log('handleMouseUp')
         let newChoices = [...choices];
         if (choiceTitle === 'like') newChoices[currCardIndex] = 'like';
-        else newChoices[currCardIndex] = 'dislike';
+        if (choiceTitle === 'dislike') newChoices[currCardIndex] = 'dislike';
         setChoices(newChoices);
+        setChoiceRate(0);
+        setCurrCardIndex(currCardIndex - 1);
     }
-
 
     return (
         <>
@@ -99,8 +110,8 @@ const Choicebar = ({ choiceRate, setChoiceRate, currCardIndex, choices, setChoic
                                     width: '80px',
                                     fill: `${fillHeartHandler(choiceIcon.title)}`
                                 }}
-                                // onClick={() => handleClick(choiceIcon.title)}
                                 onMouseDown={() => handleMouseDown(choiceIcon.title)}
+                                onTouchStart={() => handleMouseDown(choiceIcon.title)}
                                 onMouseUp={() => handleMouseUp(choiceIcon.title)}
                             >
                                 <svg version="1.1" id="圖層_1" focusable="false" xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +122,7 @@ const Choicebar = ({ choiceRate, setChoiceRate, currCardIndex, choices, setChoic
                                     <g>
                                         <circle cx="12" cy="12" r={`${circleRadiusHandler(choiceIcon.title)}`} fill={choiceIcon.color}
                                             fillOpacity={`${circleOpacityHandler(choiceIcon.title)}`}
-                                            stroke={choiceIcon.color} stroke-width={`${circleStrokeHandler(choiceIcon.title)}`}
+                                            stroke={choiceIcon.color} strokeWidth={`${circleStrokeHandler(choiceIcon.title)}`}
                                         />
                                     </g>
                                     {/* scale r, xy translate 12*(1-r) */}

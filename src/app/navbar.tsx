@@ -57,6 +57,7 @@ const Navbar = () => {
                     className='h-max w-8 py-1 opacity-50 cursor-pointer transistion duration-200 ease-in-out'
                     style={pathname.includes(page.path) ? { fill: '#ee0000', opacity: '80%' } : { fill: 'black' }}
                     onClick={() => router.push(page.path)}
+                    key={index}
                 >
                     {page.svg}
                 </div>

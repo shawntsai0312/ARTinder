@@ -10,12 +10,11 @@ const home = () => {
     const [choices, setChoices] = useState<Array<'like' | 'dislike' | 'none'>>(new Array(users.length).fill('none'));
 
     useEffect(() => {
-        // console.log(choiceRate)
         if (choiceRate >= 5.5 || choiceRate <= -5.5) setChoiceRate(0)
     }, [choiceRate])
 
     useEffect(() => {
-        console.log('currCardIndex', currCardIndex);
+        // console.log(currCardIndex)
     }, [currCardIndex])
 
     return (
@@ -24,9 +23,10 @@ const home = () => {
                 choices={choices} setChoices={setChoices}
                 currCardIndex={currCardIndex} setCurrCardIndex={setCurrCardIndex}
             />
-            <div className="w-full h-[44px] fixed flex justify-center bottom-[80px] z-30">
+            <div className="w-full h-[44px] fixed flex justify-center bottom-[90px] z-30">
                 <Choicebar choiceRate={choiceRate} setChoiceRate={setChoiceRate}
-                    currCardIndex={currCardIndex} choices={choices} setChoices={setChoices}
+                    currCardIndex={currCardIndex} setCurrCardIndex={setCurrCardIndex}
+                    choices={choices} setChoices={setChoices}
                 />
             </div>
         </div>

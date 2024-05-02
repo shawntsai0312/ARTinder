@@ -5,20 +5,18 @@ import { useEffect, useState, useRef, Dispatch, SetStateAction } from 'react';
 import { useSprings, animated, to as interpolate } from '@react-spring/web'
 import { useDrag } from '@use-gesture/react'
 
-const to = (i: number) => ({
+const to = () => ({
     x: 0,
     y: 0,
     rot: 0,
     scale: 1
 })
-const from = (i: number) => ({
+const from = () => ({
     x: 0,
     y: 0,
     rot: 0,
     scale: 1
 })
-
-const triggerDistance = window.innerWidth / 3;
 
 const trans = (r: number, s: number) =>
     `perspective(1500px) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`
@@ -31,14 +29,15 @@ const Deck = ({ setChoiceRate, choices, setChoices, currCardIndex, setCurrCardIn
         currCardIndex: number,
         setCurrCardIndex: Dispatch<SetStateAction<number>>
     }) => {
+
     const [gone, setGone] = useState<Set<number>>(() => new Set())
 
     const [clickPositionY, setClickPositionY] = useState<number>(0);
-    const [down, setDown] = useState<boolean>(false);
     const animatedDivRef = useRef<HTMLDivElement>(null);
     const [rotateDirection, setRotateDirection] = useState<number>(1);
 
     const handleClick = (event: React.TouchEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) => {
+        // console.log('touch screen')
         // Get the position of the interaction relative to the viewport
         const interactionY = event.type === 'touchstart' ?
             (event as React.TouchEvent<HTMLDivElement>).touches[0].clientY
@@ -56,62 +55,62 @@ const Deck = ({ setChoiceRate, choices, setChoices, currCardIndex, setCurrCardIn
     };
 
     useEffect(() => {
-        if (down) {
-            if (clickPositionY > 0) setRotateDirection(-1);
-            else setRotateDirection(1);
-        }
-    }, [down])
+        // console.log('clickPositionY', clickPositionY)
+        if (clickPositionY > 0) setRotateDirection(-1);
+        else setRotateDirection(1);
+    }, [clickPositionY])
 
     const [props, api] = useSprings(users.length, i => ({
-        ...to(i),
-        from: from(i),
+        ...to(),
+        from: from(),
     }))
 
+
+    /*------------------------------------------- user clicking buttons animation -------------------------------------------*/
+    // handleCardSwipe will be called when chioces have been updated
+    // which is updated when user clicks the buttons (in choicebar.tsx)
     useEffect(() => {
-        console.log('choices', choices);
         handleCardSwipe();
     }, [choices])
 
-    const handleCardSwipe = () => {
-
+    const handleCardSwipe = (): void => {
         api.start(i => {
-            if (currCardIndex !== i) return
-
-            console.log('handleCardSwipe', i, choices[i]);
-
-            let x = 0, y = 0, rot = 0, scale = 1;
-
-            if (choices[i] === 'like') {
-                x = 2 * window.innerWidth;
-                console.log('click like')
+            let x = 0, y = 0, rot = 0, scale = 0.98;
+            if (i < currCardIndex) return {
+                x,
+                y,
+                rot,
+                scale,
+                delay: undefined,
+                config: { friction: 50, tension: 200 },
             }
-            else if (choices[i] === 'dislike') {
-                x = -2 * window.innerWidth;
-                console.log('click dislike')
-            }
+
+            if (choices[i] === 'like') x = 2 * window.innerWidth;
+            else if (choices[i] === 'dislike') x = -2 * window.innerWidth;
             else x = 0;
+
             y = 0;
             rot = x / 30;
+            scale = 1;
 
-            if (x >= 2 * window.innerWidth || x <= -2 * window.innerWidth) setCurrCardIndex(currCardIndex - 1);
-            setChoiceRate(x / triggerDistance);
             return {
                 x,
                 y,
                 rot,
                 scale,
                 delay: undefined,
-                config: { friction: 50, tension: down ? 800 : 200 },
+                config: { friction: 50, tension: 200 },
             }
         })
-
     };
 
-    const bind = useDrag(({ args: [index], down, movement, dragging }) => {
+    /*----------------------------------------------- user dragging animation -----------------------------------------------*/
+    // useDrag will only be called when user is trying to drag something
+    const bind = useDrag(({ args: [index], down, movement }) => {
+        const triggerDistance = window.innerWidth / 3;
         const trigger = (Math.abs(movement[0]) >= triggerDistance);
 
-        setCurrCardIndex(index);    // the top card index = index
-        setDown(down);
+        setCurrCardIndex(index);
 
         if (!down && trigger) {
             setGone(prev => {
@@ -181,10 +180,12 @@ const Deck = ({ setChoiceRate, choices, setChoices, currCardIndex, setCurrCardIn
                         transform: interpolate([rot, scale], trans)
                     }}
                     {...bind(i)}
+                    key={i}
                     ref={animatedDivRef}
-                    onMouseMove={handleClick}
+                    onMouseDown={handleClick}
+                    onTouchStart={handleClick}
                 >
-                    <Card name={users[i].name} discrption={users[i].discription} imgUrl={users[i].url} />
+                    <Card name={users[i].name} discrption={users[i].discription} imgUrl={users[i].imgUrl} />
                 </animated.div>
             ))}
         </div>
