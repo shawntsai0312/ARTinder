@@ -5,6 +5,7 @@ import CardCover from '@mui/joy/CardCover';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 import Stack from '@mui/material/Stack';
+import Image from 'next/image';
 
 interface CardProps {
     name: string;
@@ -49,9 +50,10 @@ const UserCard = ({ name, description, imgUrl }: CardProps) => {
 
         <Card ref={cardRef} sx={{ height: '100%', width: '97.5%' }} onClick={handleClick}>
             <CardCover>
-                <img
+                <Image
                     src={imgUrl}
-                    srcSet={`${imgUrl} 2x`}
+                    width={600}
+                    height={600}
                     loading="lazy"
                     alt=""
                 />

@@ -68,7 +68,7 @@ const ChatBox = async ({ params }: chatBoxProps) => {
                 {
                     jsonData ?
                         jsonData.content.map((chat, index) => (
-                            <Stack className="mt-2 mb-2 p-3 z-[10] relative " direction="row" spacing={2} alignItems="center" justifyContent={chat.sender === 'me' ? 'flex-end' : 'flex-start'}>
+                            <Stack className="mt-2 mb-2 p-3 z-[10] relative " key={index} direction="row" spacing={2} alignItems="center" justifyContent={chat.sender === 'me' ? 'flex-end' : 'flex-start'}>
                                 {
                                     chat.sender === 'me' ? null : <Avatar sx={{ width: 34, height: 34 }} alt="Remy Sharp" src={imgUrl} />
                                 }
