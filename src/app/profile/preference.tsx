@@ -23,29 +23,31 @@ const Preference = () => {
     }
 
     return (
-        <div className='bg-white z-10 h-[50%] w-[50%] flex flex-col items-center justify-center overflow-y-scroll rounded-[5px]'>
-            <div className='text-2xl'>
+        <div className='bg-white z-10 h-[50%] w-[80%] flex flex-col items-center justify-center overflow-y-scroll rounded-[5px]'>
+            <div className='h-[15%] text-2xl flex items-center justify-center'>
                 Preference
             </div>
-            <FormControl component="fieldset">
-                <FormGroup aria-label="position">
-                    {
-                        preference.map((item, index) => {
-                            return (
-                                <FormControlLabel
-                                    key={index}
-                                    value={item.name}
-                                    control={
-                                        <Switch color="primary" checked={item.value} onChange={handleChange(index)} />
-                                    }
-                                    label={item.name}
-                                    labelPlacement="start"
-                                />
-                            )
-                        })
-                    }
-                </FormGroup>
-            </FormControl>
+            <div className='h-[85%] w-full flex flex-col items-center justify-center overflow-y-scroll'>
+                <FormControl className='h-full' component="fieldset">
+                    <FormGroup aria-label="position">
+                        {
+                            preference.map((item, index) => {
+                                return (
+                                    <FormControlLabel
+                                        key={index}
+                                        value={item.name}
+                                        control={
+                                            <Switch color="primary" checked={item.value} onChange={handleChange(index)} />
+                                        }
+                                        label={item.name}
+                                        labelPlacement="start"
+                                    />
+                                )
+                            })
+                        }
+                    </FormGroup>
+                </FormControl>
+            </div>
         </div>
     )
 }
