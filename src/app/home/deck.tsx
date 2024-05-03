@@ -21,7 +21,7 @@ const from = () => ({
 const trans = (r: number, s: number) =>
     `perspective(1500px) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`
 
-const deck = ({ setChoiceRate, choices, setChoices, currCardIndex, setCurrCardIndex }:
+const Deck = ({ setChoiceRate, choices, setChoices, currCardIndex, setCurrCardIndex }:
     {
         setChoiceRate: Dispatch<SetStateAction<number>>,
         choices: Array<'like' | 'dislike' | 'none'>,
@@ -192,4 +192,4 @@ const deck = ({ setChoiceRate, choices, setChoices, currCardIndex, setCurrCardIn
     )
 }
 
-export default deck;
+export default Deck;

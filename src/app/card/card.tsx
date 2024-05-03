@@ -5,8 +5,6 @@ import CardCover from '@mui/joy/CardCover';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
 
 interface CardProps {
     name: string;
@@ -14,7 +12,7 @@ interface CardProps {
     imgUrl: string;
 }
 
-const card = ({ name, description, imgUrl }: CardProps) => {
+const UserCard = ({ name, description, imgUrl }: CardProps) => {
     const [descriptionIndex, setDescriptionIndex] = useState<number>(0);
 
     const cardRef = useRef<HTMLDivElement>(null);
@@ -83,4 +81,4 @@ const card = ({ name, description, imgUrl }: CardProps) => {
     )
 }
 
-export default card;
+export default UserCard;

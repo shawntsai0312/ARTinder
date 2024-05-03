@@ -20,7 +20,7 @@ interface FriendProps {
     lastMessage: string;
 }
 
-const chat = () => {
+const Chat = () => {
     const router = useRouter();
 
     const handleChatClick = (friend: FriendProps) => {
@@ -65,4 +65,4 @@ const chat = () => {
     )
 }
 
-export default chat;
+export default Chat;

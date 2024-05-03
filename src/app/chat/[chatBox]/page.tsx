@@ -27,7 +27,7 @@ interface chatBoxProps {
     params: ParamsProps;
 }
 
-const chatBox = async ({ params }: chatBoxProps) => {
+const ChatBox = async ({ params }: chatBoxProps) => {
     const imgUrl = '/resource/chatData/img/' + params.chatBox + '.jpg';
     const router = useRouter();
 
@@ -93,6 +93,6 @@ const chatBox = async ({ params }: chatBoxProps) => {
     );
 };
 
-export default dynamic(() => Promise.resolve(chatBox), {
+export default dynamic(() => Promise.resolve(ChatBox), {
     ssr: false // Set to false to ensure dynamic import works client-side only
 });

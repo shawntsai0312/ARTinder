@@ -12,7 +12,7 @@ interface preferenceProps {
 }
 
 
-const preference = () => {
+const Preference = () => {
 
     const [preference, setPreference] = useState<preferenceProps[]>(myPreference)
 
@@ -47,4 +47,4 @@ const preference = () => {
     )
 }
 
-export default preference;
+export default Preference;

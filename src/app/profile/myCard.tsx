@@ -27,7 +27,7 @@ interface MyCardProps {
     closeModal: () => void;
 }
 
-const myCard = ({ name, description, imgUrl, closeModal }: MyCardProps) => {
+const MyCard = ({ name, description, imgUrl, closeModal }: MyCardProps) => {
 
     const animatedDivRef = useRef<HTMLDivElement>(null);
     const [clickPositionY, setClickPositionY] = useState<number>(0);
@@ -120,4 +120,4 @@ const myCard = ({ name, description, imgUrl, closeModal }: MyCardProps) => {
     )
 }
 
-export default myCard;
+export default MyCard;

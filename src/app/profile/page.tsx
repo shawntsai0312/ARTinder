@@ -11,7 +11,7 @@ import me from '../../../public/resource/profileData/me.json'
 import MyCard from './myCard';
 import Preference from './preference';
 
-const profile = () => {
+const Profile = () => {
     const [cardOpen, setCardOpen] = useState(false);
     const handleCardOpen = () => setCardOpen(true);
     const handleCardClose = () => setCardOpen(false);
@@ -125,4 +125,4 @@ const profile = () => {
     )
 }
 
-export default profile;
+export default Profile;

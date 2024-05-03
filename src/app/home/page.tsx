@@ -1,10 +1,10 @@
 'use client'
 import Choicebar from "./choicebar";
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Deck from './deck';
 import users from '../../../public/resource/homeData/users.json'
 
-const home = () => {
+const Home = () => {
     const [currCardIndex, setCurrCardIndex] = useState<number>(users.length - 1);
     const [choiceRate, setChoiceRate] = useState<number>(0);
     const [choices, setChoices] = useState<Array<'like' | 'dislike' | 'none'>>(new Array(users.length).fill('none'));
@@ -33,4 +33,4 @@ const home = () => {
     )
 }
 
-export default home;
+export default Home;
