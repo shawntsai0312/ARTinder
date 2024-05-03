@@ -20,13 +20,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="h-screen overflow-y w-screen">
-          <div className="w-full h-[44px] fixed top-0 bg-white">
+          <div className="w-full h-[48px] fixed top-0 bg-white">
             <Headbar />
           </div>
-          <div className="w-full h-[calc(100%-88px)] fixed overflow-y top-[44px] z-10">
+          <div className="w-full h-[calc(100%-96px)] fixed overflow-y top-[48px] z-10">
             {children}
           </div>
-          <div className="w-full h-[44px] fixed flex justify-center bottom-0 bg-white">
+          <div className="w-full h-[48px] fixed flex justify-center bottom-0 bg-white">
             <Navbar />
           </div>
         </div>

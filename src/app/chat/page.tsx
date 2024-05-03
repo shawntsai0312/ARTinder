@@ -7,14 +7,14 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import friends from '../../../public/resource/chatData/friends.json'
 
 interface FriendProps {
     id: string;
     name: string;
-    discription: string;
+    description: string;
     imgUrl: string;
     chatDataUrl: string;
     lastMessage: string;
@@ -32,7 +32,7 @@ const chat = () => {
     return (
         <div className="w-full h-full absolute top-0 p-3">
             <div className="w-full h-[44px] absolute top-0 p-3">
-                <p className="text-black text-xl">Chat</p>
+                <p className="text-black text-xl">聊天室</p>
             </div>
 
             <List className='absolute top-[44px] overflow-y-scroll' sx={{ width: '100%', bgcolor: 'background.paper' }}>
@@ -45,7 +45,7 @@ const chat = () => {
                                     className='hover: border-gray-300 hover:bg-gray-100 cursor-pointer'
                                 >
                                     <ListItemAvatar>
-                                        <Avatar alt="Remy Sharp" src={friend.imgUrl} />
+                                        <Avatar alt={friend.id} src={friend.imgUrl} />
                                     </ListItemAvatar>
                                     <ListItemText
                                         primary={friend.name}

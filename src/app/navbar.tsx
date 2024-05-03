@@ -51,11 +51,11 @@ const Navbar = () => {
     const pathname = usePathname();
 
     return (
-        <div className='flex items-center fixed h-max w-full justify-around bg-white ' >
+        <div className='h-[44px] w-full mt-[2px] mb-[2px] flex items-center fixed justify-around bg-white ' >
             {pages.map((page, index) => (
                 <div
-                    className='h-max w-8 py-1 opacity-50 cursor-pointer transistion duration-200 ease-in-out'
-                    style={pathname.includes(page.path) ? { fill: '#ee0000', opacity: '80%' } : { fill: 'black' }}
+                    className='h-max w-8 py-1 cursor-pointer transistion duration-200 ease-in-out'
+                    style={pathname.includes(page.path) ? { fill: '#ff4458' } : { fill: '#7c8591' }}
                     onClick={() => router.push(page.path)}
                     key={index}
                 >

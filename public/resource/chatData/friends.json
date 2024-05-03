@@ -2,7 +2,7 @@
     {
         "id": "liu",
         "name": "劉震紳",
-        "discription": "我是劉震紳",
+        "description": "我是劉震紳",
         "imgUrl": "/resource/chatData/img/liu.jpg",
         "chatDataUrl": "/resource/chatData/liu.json",
         "lastMessage": "你好"
@@ -10,7 +10,7 @@
     {
         "id": "lee",
         "name": "李博翰",
-        "discription": "我是李博翰",
+        "description": "我是李博翰",
         "imgUrl": "/resource/chatData/img/lee.jpg",
         "chatDataUrl": "/resource/chatData/lee.json",
         "lastMessage": "我交換禮物送系上帽踢"

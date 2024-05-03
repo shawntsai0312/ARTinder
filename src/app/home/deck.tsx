@@ -21,7 +21,7 @@ const from = () => ({
 const trans = (r: number, s: number) =>
     `perspective(1500px) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`
 
-const Deck = ({ setChoiceRate, choices, setChoices, currCardIndex, setCurrCardIndex }:
+const deck = ({ setChoiceRate, choices, setChoices, currCardIndex, setCurrCardIndex }:
     {
         setChoiceRate: Dispatch<SetStateAction<number>>,
         choices: Array<'like' | 'dislike' | 'none'>,
@@ -75,12 +75,12 @@ const Deck = ({ setChoiceRate, choices, setChoices, currCardIndex, setCurrCardIn
 
     const handleCardSwipe = (): void => {
         api.start(i => {
-            let x = 0, y = 0, rot = 0, scale = 0.98;
+            let x = 0, y = 0, rot = 0;
             if (i < currCardIndex) return {
-                x,
-                y,
-                rot,
-                scale,
+                x: 0,
+                y: 0,
+                rot: 0,
+                scale: 0.98,
                 delay: undefined,
                 config: { friction: 50, tension: 200 },
             }
@@ -91,16 +91,16 @@ const Deck = ({ setChoiceRate, choices, setChoices, currCardIndex, setCurrCardIn
 
             y = 0;
             rot = x / 30;
-            scale = 1;
 
             return {
                 x,
                 y,
                 rot,
-                scale,
+                scale: 1,
                 delay: undefined,
                 config: { friction: 50, tension: 200 },
             }
+
         })
     };
 
@@ -172,7 +172,7 @@ const Deck = ({ setChoiceRate, choices, setChoices, currCardIndex, setCurrCardIn
     })
 
     return (
-        <div className='w-full h-full will-change-transform items-center justify-center touch-none'>
+        <div className='w-full h-full will-change-transform flex items-center justify-center touch-none'>
             {props.map(({ x, y, rot, scale }, i) => (
                 <animated.div className='w-full h-full absolute flex will-change-transform items-center justify-center touch-none'
                     style={{
@@ -185,11 +185,11 @@ const Deck = ({ setChoiceRate, choices, setChoices, currCardIndex, setCurrCardIn
                     onMouseDown={handleClick}
                     onTouchStart={handleClick}
                 >
-                    <Card name={users[i].name} discrption={users[i].discription} imgUrl={users[i].imgUrl} />
+                    <Card name={users[i].name} description={users[i].description} imgUrl={users[i].imgUrl} />
                 </animated.div>
             ))}
         </div>
     )
 }
 
-export default Deck;
+export default deck;

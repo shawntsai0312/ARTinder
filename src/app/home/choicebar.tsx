@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 const normalScale: number = 0.425;
 const hoverScale: number = 0.475;
 const translate = (scale: number): number => (12 * (1 - scale));
+/* scale r, xy translate 12*(1-r) */
 
 interface ChoiceIconProps {
     title: string;
@@ -52,12 +53,12 @@ const Choicebar = ({ choiceRate, setChoiceRate, currCardIndex, setCurrCardIndex,
 
     const circleOpacityHandler = (choiceTitle: string): string => {
         if (choiceTitle === 'like') {
-            if (choiceRate > 0 && choiceRate <= 1) return '67%';
-            else if (choiceRate > 1 && choiceRate <= 2) return `${67 - (choiceRate - 1) * 67}%`;
+            if (choiceRate > 0 && choiceRate <= 1) return '50%';
+            else if (choiceRate > 1 && choiceRate <= 2) return `${50 - (choiceRate - 1) * 50}%`;
         }
         if (choiceTitle === 'dislike') {
-            if (-choiceRate > 0 && -choiceRate <= 1) return '67%';
-            else if (-choiceRate > 1 && -choiceRate <= 2)`${67 - (-choiceRate - 1) * 67}%`;
+            if (-choiceRate > 0 && -choiceRate <= 1) return '50%';
+            else if (-choiceRate > 1 && -choiceRate <= 2)`${50 - (-choiceRate - 1) * 50}%`;
         }
         return '0%';
     }
@@ -114,6 +115,7 @@ const Choicebar = ({ choiceRate, setChoiceRate, currCardIndex, setCurrCardIndex,
                                 onTouchStart={() => handleMouseDown(choiceIcon.title)}
                                 onMouseUp={() => handleMouseUp(choiceIcon.title)}
                             >
+                                
                                 <svg version="1.1" id="圖層_1" focusable="false" xmlns="http://www.w3.org/2000/svg"
                                     xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24"
                                     width="100%" height="100%"
@@ -125,13 +127,13 @@ const Choicebar = ({ choiceRate, setChoiceRate, currCardIndex, setCurrCardIndex,
                                             stroke={choiceIcon.color} strokeWidth={`${circleStrokeHandler(choiceIcon.title)}`}
                                         />
                                     </g>
-                                    {/* scale r, xy translate 12*(1-r) */}
                                     <g className='scale-[0.425] translate-x-[6.9px] translate-y-[6.9px]
                                     hover:scale-[0.475] hover:translate-x-[6.3px] hover:translate-y-[6.3px]
                                     transistion duration-200 ease-in-out'>
                                         {choiceIcon.svgPath}
                                     </g>
                                 </svg>
+                               
                             </IconButton>
                             // </div>
                         ))}

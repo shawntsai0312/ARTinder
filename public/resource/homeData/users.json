@@ -2,7 +2,7 @@
     {
         "id": "hsu",
         "name": "許金川",
-        "discription": [
+        "description": [
             "我愛看抖音",
             "我演講會一直放抖音幹片"
         ],
@@ -11,15 +11,16 @@
     {
         "id": "ke",
         "name": "柯承恩",
-        "discription": [
-            "我是柯承恩"
+        "description": [
+            "我是柯承恩",
+            "我也不知道放啥"
         ],
         "imgUrl": "/resource/homeData/img/ke.jpg"
     },
     {
         "id": "nien",
         "name": "粘曉菁",
-        "discription": [
+        "description": [
             "我開NPO之戀這門通識課",
             "我很會吹捧我的基金會夥伴"
         ],
@@ -28,7 +29,7 @@
     {
         "id": "damn",
         "name": "damn damn 哥",
-        "discription": [
+        "description": [
             "蝦皮damn到damn的damn員",
             "M3合度",
             "SHIT"
@@ -38,11 +39,12 @@
     {
         "id": "tsai",
         "name": "蔡鋒博",
-        "discription": [
+        "description": [
             "彰化博元婦產科蔡鋒博醫師",
-            "專長是做棒式、迅猛龍、毛毛蟲",
+            "棒式、迅猛龍、毛毛蟲",
             "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ...",
-            "歡迎購買蔡醫師小卡、蔡醫梳、蔡醫服"
+            "歡迎購買蔡醫師小卡、蔡醫梳、蔡醫服",
+            "蒜片牛排一口吞"
         ],
         "imgUrl": "/resource/homeData/img/tsai.jpg"
     }
