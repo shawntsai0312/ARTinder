@@ -9,6 +9,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "ARTinder",
   description: "a tinder-like app for art lovers",
+  icons: {
+    icon: "./icon.ico"
+  },
 };
 
 export default function RootLayout({
