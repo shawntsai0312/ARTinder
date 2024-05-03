@@ -9,6 +9,8 @@ import Fade from '@mui/material/Fade';
 import Backdrop from '@mui/material/Backdrop';
 import me from '../../../public/resource/profileData/me.json'
 import MyCard from './myCard';
+import Setting from './setting';
+import Edit from './edit';
 import Preference from './preference';
 
 const Profile = () => {
@@ -16,21 +18,18 @@ const Profile = () => {
     const handleCardOpen = () => setCardOpen(true);
     const handleCardClose = () => setCardOpen(false);
 
+    const [settingOpen, setSettingOpen] = useState(false);
+    const handleSettingOpen = () => setSettingOpen(true);
+    const handleSettingClose = () => setSettingOpen(false);
+
+
+    const [editOpen, setEditOpen] = useState(false);
+    const handleEditOpen = () => setEditOpen(true);
+    const handleEditClose = () => setEditOpen(false);
+
     const [preferenceOpen, setPreferenceOpen] = useState(false);
     const handlePreferenceOpen = () => setPreferenceOpen(true);
     const handlePreferenceClose = () => setPreferenceOpen(false);
-
-    const handleGoToAppSetting = () => {
-        console.log('app setting')
-    }
-
-    const handleGoToEditProfile = () => {
-        console.log('edit profile')
-    }
-
-    const handleGoToPreferenceSetting = () => {
-        console.log('preference setting')
-    }
 
     return (
         <div className="h-full w-full bg-gray-200">
@@ -45,7 +44,7 @@ const Profile = () => {
                 </div>
                 <div className='h-[120px] w-[50%] mt-2 mb-2 text-[28px] flex flex-row items-center justify-around'>
                     <div className='h-[70%] flex flex-col items-center justify-around text-[16px] cursor-pointer'
-                        onClick={handleGoToAppSetting}
+                        onClick={handleSettingOpen}
                     >
                         <div className='h-[48px] w-[48px] opacity-[50%]
                             border-[1px] border-black rounded-full
@@ -56,7 +55,7 @@ const Profile = () => {
                         APP 設定
                     </div>
                     <div className='h-[80%] mt-[40px] flex flex-col items-center justify-around text-[16px] cursor-pointer'
-                        onClick={handleGoToEditProfile}
+                        onClick={handleEditOpen}
                     >
                         <div className='h-[48px] w-[48px] opacity-[90%]
                             border-[1px] border-black rounded-full
@@ -97,6 +96,48 @@ const Profile = () => {
                 <Fade in={cardOpen}>
                     <div className='h-full w-full flex items-center justify-center'>
                         <MyCard name={me.name} description={me.description} imgUrl={me.imgUrl} closeModal={handleCardClose} />
+                    </div>
+                </Fade>
+            </Modal>
+            
+            <Modal
+                className='flex items-center justify-center'
+                open={settingOpen}
+                onClose={handleSettingClose}
+                closeAfterTransition
+                aria-labelledby="setting"
+                aria-describedby="this is my setting"
+                slots={{ backdrop: Backdrop }}
+                slotProps={{
+                    backdrop: {
+                        timeout: 500,
+                    },
+                }}
+            >
+                <Fade in={settingOpen}>
+                    <div className='h-full w-full flex items-center justify-center'>
+                        <Setting />
+                    </div>
+                </Fade>
+            </Modal>
+
+            <Modal
+                className='flex items-center justify-center'
+                open={editOpen}
+                onClose={handleEditClose}
+                closeAfterTransition
+                aria-labelledby="edit"
+                aria-describedby="edit my profile"
+                slots={{ backdrop: Backdrop }}
+                slotProps={{
+                    backdrop: {
+                        timeout: 500,
+                    },
+                }}
+            >
+                <Fade in={editOpen}>
+                    <div className='h-full w-full flex items-center justify-center'>
+                        <Edit />
                     </div>
                 </Fade>
             </Modal>

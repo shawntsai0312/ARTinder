@@ -24,6 +24,9 @@ const Preference = () => {
 
     return (
         <div className='bg-white z-10 h-[50%] w-[50%] flex flex-col items-center justify-center overflow-y-scroll rounded-[5px]'>
+            <div className='text-2xl'>
+                Preference
+            </div>
             <FormControl component="fieldset">
                 <FormGroup aria-label="position">
                     {
