@@ -1,10 +1,10 @@
 [
     {
-        "id": "liu",
-        "name": "劉震紳",
-        "description": "我是劉震紳",
-        "imgUrl": "/resource/chatData/img/liu.jpg",
-        "chatDataUrl": "/resource/chatData/liu.json",
+        "id": "chen",
+        "name": "陳思穎",
+        "description": "我是陳思穎",
+        "imgUrl": "/resource/chatData/img/chen.jpg",
+        "chatDataUrl": "/resource/chatData/chen.json",
         "lastMessage": "你好"
     },
     {

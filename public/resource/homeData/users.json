@@ -1,32 +1,5 @@
 [
     {
-        "id": "hsu",
-        "name": "許金川",
-        "description": [
-            "我愛看抖音",
-            "我演講會一直放抖音幹片"
-        ],
-        "imgUrl": "/resource/homeData/img/hsu.jpg"
-    },
-    {
-        "id": "ke",
-        "name": "柯承恩",
-        "description": [
-            "我是柯承恩",
-            "我也不知道放啥"
-        ],
-        "imgUrl": "/resource/homeData/img/ke.jpg"
-    },
-    {
-        "id": "nien",
-        "name": "粘曉菁",
-        "description": [
-            "我開NPO之戀這門通識課",
-            "我很會吹捧我的基金會夥伴"
-        ],
-        "imgUrl": "/resource/homeData/img/nien.jpg"
-    },
-    {
         "id": "damn",
         "name": "damn damn 哥",
         "description": [
@@ -47,5 +20,44 @@
             "蒜片牛排一口吞"
         ],
         "imgUrl": "/resource/homeData/img/tsai.jpg"
+    },
+    {
+        "id": "hung",
+        "name": "洪勤哲",
+        "description": [
+            "家具設計師",
+            "精通家具、燈具、雕塑到室內和產品設計"
+        ],
+        "imgUrl": "/resource/homeData/img/hung.jpg"
+    },
+    {
+        "id": "yien",
+        "name": "江鳴謙（阿彥）",
+        "description": [
+            "我要讓做木工變成一件很帥氣的事",
+            "入圍 2019 年的台北老屋新生大獎",
+            "老屋也可以被賦予新時代的功能，而非只有「拆掉都更」這個單一的選擇"
+        ],
+        "imgUrl": "/resource/homeData/img/yien.jpg"
+    },
+    {
+        "id": "chu",
+        "name": "朱晨維",
+        "description": [
+            "當代潮流藝術家",
+            "熟悉潮流族群的文化語彙，運用潮流與精品品牌文字符碼與圖樣融入其個人畫作之中",
+            "《Hype Trap》畫作，藉由三隻惡犬搶同一只球鞋的畫面，凸顯球鞋炒作文化的亂象與風潮"
+        ],
+        "imgUrl": "/resource/homeData/img/chu.jpg"
+    },
+    {
+        "id": "wang",
+        "name": "王錡宣",
+        "description": [
+            "長榮大學美術學系水墨組碩士",
+            "2023香港蘇富比秋季拍賣會作品「百爵圖」以65000元港幣拍出",
+            "畫作除可展現繪畫技巧和藝術感外，更是述說著一段古老的故事和情感"
+        ],
+        "imgUrl": "/resource/homeData/img/wang.jpg"
     }
 ]
