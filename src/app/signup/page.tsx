@@ -7,12 +7,12 @@ function Page() {
     const router = useRouter();
 
     return (
-        <div className="App">
-            <div className={'mainContainer'}>
-                <div className={'titleContainer'}>
-                    <div>Sign Up</div>
-                </div>
-                <br />
+        <div className='w-full h-full flex justify-around items-center flex-col just'>
+            <div className='text-5xl w-full h-[48px] m-1 bg-white flex justify-center items-center'>
+                Sign Up
+            </div>
+            <br />
+            <div className='w-full h-[calc(100%-116px)] mt-1 mb-1 overflow-y-scroll flex justify-center items-center flex-col'>
                 <div className={'inputContainer'}>
                     <input
                         placeholder="Enter your username here"
@@ -58,10 +58,10 @@ function Page() {
                         <option >Fragrance</option>
                     </select>
                 </div>
-                <br />
-                <div className={'inputContainer'}>
-                    <input className={'buttonContainer'} type="button" value={'sign up'} onClick={()=>router.push('/home')} />
-                </div>
+            </div>
+            <br />
+            <div className='w-[80%] h-[48px] m-1 flex justify-center bg-white'>
+                <input className={'buttonContainer'} type="button" value={'sign up'} onClick={() => router.push('/home')} />
             </div>
         </div>
     )

@@ -1,6 +1,7 @@
 'use client';
 import * as React from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import path from 'path';
 
 interface PageProps {
     title: string;
@@ -52,16 +53,20 @@ const Navbar = () => {
 
     return (
         <div className='h-[44px] w-full mt-[2px] mb-[2px] flex items-center fixed justify-around bg-white ' >
-            {pages.map((page, index) => (
-                <div
-                    className='h-max w-8 py-1 cursor-pointer transistion duration-200 ease-in-out'
-                    style={pathname.includes(page.path) ? { fill: '#ff4458' } : { fill: '#7c8591' }}
-                    onClick={() => router.push(page.path)}
-                    key={index}
-                >
-                    {page.svg}
-                </div>
-            ))}
+            {
+                pathname.includes('/signup') ? <></> :
+
+                    pages.map((page, index) =>
+                        <div
+                            className='h-max w-8 py-1 cursor-pointer transistion duration-200 ease-in-out'
+                            style={pathname.includes(page.path) ? { fill: '#ff4458' } : { fill: '#7c8591' }}
+                            onClick={() => router.push(page.path)}
+                            key={index}
+                        >
+                            {page.svg}
+                        </div>
+                    )
+            }
         </div>
     );
 }
