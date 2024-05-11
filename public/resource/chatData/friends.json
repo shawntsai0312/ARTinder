@@ -6,13 +6,5 @@
         "imgUrl": "/resource/chatData/img/chen.jpg",
         "chatDataUrl": "/resource/chatData/chen.json",
         "lastMessage": "你好"
-    },
-    {
-        "id": "lee",
-        "name": "李博翰",
-        "description": "我是李博翰",
-        "imgUrl": "/resource/chatData/img/lee.jpg",
-        "chatDataUrl": "/resource/chatData/lee.json",
-        "lastMessage": "我交換禮物送系上帽踢"
     }
 ]
